@@ -5,4 +5,5 @@ dist
 .editorconfig
 .gitattributes
 .jshintrc
+.idea/
 bower_components

@@ -29,6 +29,12 @@ module.exports = function (grunt) {
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
+      update_dist: {
+        files: ['dist/scripts', 'dist/styles', 'dist/views'],
+        options: {
+          livereload: '<%= connect.options.livereload %>'
+        }
+      },
       bower: {
         files: ['bower.json'],
         tasks: ['wiredep']
@@ -46,7 +52,10 @@ module.exports = function (grunt) {
       },
       compass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        tasks: ['compass:server', 'autoprefixer']
+        tasks: ['compileCss'],
+        options: {
+          livereload: '<%= connect.options.livereload %>'
+        }
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -176,23 +185,8 @@ module.exports = function (grunt) {
     compass: {
       options: {
         sassDir: '<%= yeoman.app %>/styles',
-        cssDir: '.tmp/styles',
-        generatedImagesDir: '.tmp/images/generated',
-        imagesDir: '<%= yeoman.app %>/images',
-        javascriptsDir: '<%= yeoman.app %>/scripts',
-        fontsDir: '<%= yeoman.app %>/styles/fonts',
-        importPath: './bower_components',
-        httpImagesPath: '/images',
-        httpGeneratedImagesPath: '/images/generated',
-        httpFontsPath: '/styles/fonts',
-        relativeAssets: false,
-        assetCacheBuster: false,
-        raw: 'Sass::Script::Number.precision = 10\n'
-      },
-      dist: {
-        options: {
-          generatedImagesDir: '<%= yeoman.dist %>/images/generated'
-        }
+        cssDir: '<%= yeoman.dist %>/styles',
+        importPath: './bower_components'
       },
       server: {
         options: {
@@ -212,6 +206,13 @@ module.exports = function (grunt) {
         ]
       }
     },
+
+    //concat: {
+    //  vendor: {
+    //    src: [],
+    //    dest: '<%= yeoman.dist %>/scripts/vendor.js'
+    //  }
+    //}
 
     // Reads HTML for usemin blocks to enable smart builds that automatically
     // concat, minify and revision files. Creates configurations in memory so
@@ -340,7 +341,9 @@ module.exports = function (grunt) {
             '.htaccess',
             '*.html',
             'views/{,*/}*.html',
-            'images/{,*/}*.{webp}',
+            'scripts/{,*/}*.*',
+            'scripts/controllers/{,*/}*.*',
+            'images/{,*/}*.*',
             'fonts/{,*/}*.*'
           ]
         }, {
@@ -354,6 +357,12 @@ module.exports = function (grunt) {
           src: 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*',
           dest: '<%= yeoman.dist %>'
         }]
+      },
+      javascript: {
+        expand: true,
+        cwd: '.tmp/concat/scripts',
+        dest: '<%= yeoman.dist %>/scripts',
+        src: '{,*/}*.js'
       },
       styles: {
         expand: true,
@@ -431,6 +440,17 @@ module.exports = function (grunt) {
     'filerev',
     'usemin',
     'htmlmin'
+  ]);
+
+  grunt.registerTask('jorge', [
+    'clean:dist',
+    'useminPrepare',
+    'wiredep',
+    'compass:server',
+    'copy:dist',
+    'concat',
+    'copy:javascript',
+    'usemin'
   ]);
 
   grunt.registerTask('default', [
