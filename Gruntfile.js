@@ -40,6 +40,13 @@ module.exports = function (grunt) {
           livereload: '<%= connect.options.livereload %>'
         }
       },
+      view: {
+        files: ['<%= yeoman.app %>/views/{,*/}*.html', '<%= yeoman.app %>/index.html'],
+        tasks: ['useminPrepare', 'copy:dist', 'concat', 'copy:javascript', 'usemin'],
+        options: {
+          livereload: '<%= connect.options.livereload %>'
+        }
+      },
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
         tasks: ['newer:jshint:test', 'karma']
