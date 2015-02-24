@@ -24,15 +24,14 @@
       <div class="header">
         <ul class="nav nav-pills pull-right">
           <li class="active"><a ng-href="#/">Home</a></li>
-          <li><a ng-href="#/about">About</a></li>
         </ul>
         <h3 class="text-muted">Tiempo para Laura</h3>
       </div>
 
-      <div ng-view=""></div>
+      <div ng-view="" ng-controller="MainCtrl"></div>
 
       <div class="footer">
-        <p><span class="glyphicon glyphicon-asterisk"></span> Jorge Hernán Esparza</p>
+        <p><span class="glyphicon g lyphicon-asterisk"></span> Jorge Hernán Esparza</p>
       </div>
     </div>
 
@@ -73,7 +72,7 @@
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/services/service.js"></script>
         <!-- endbuild -->
 </body>
 </html>
