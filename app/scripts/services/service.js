@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc function
- * @name weatherApp.controller:cityService
+ * @name weatherApp.service:cityService
  * @description
  * # CityService
  * Service of the weatherApp

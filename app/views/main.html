@@ -25,12 +25,26 @@
     <table class="table">
 
       <tr>
-        <td>Lluvia</td>
-        <td>50%</td>
+        <td>Tª máxima</td>
+        <td>{{ currentConditions.main.temp_max | celsius | number:1 }} ºC</td>
+      </tr>
+      <tr>
+      <tr>
+        <td>Tª mínima</td>
+        <td>{{ currentConditions.main.temp_min | celsius | number:1 }} ºC</td>
+      </tr>
+      <tr>
+      <tr>
+        <td>Viento</td>
+        <td>{{ currentConditions.wind.speed }} m/s</td>
+      </tr>
+      <tr>
+        <td>Presión</td>
+        <td>{{ currentConditions.main.pressure }} hpa</td>
       </tr>
       <tr>
         <td>Humedad</td>
-        <td>60%</td>
+        <td>{{ currentConditions.main.humidity }} %</td>
       </tr>
 
     </table>
